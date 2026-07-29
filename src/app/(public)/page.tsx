@@ -1,11 +1,10 @@
-import { Button } from "@/components/ui/button";
+import HeroSection from "@/components/home/hero-section";
 
 const HomePage = () => {
   return (
-    <div>
-      <p>Home Page</p>
-      <Button>Click</Button>
-    </div>
+    <>
+      <HeroSection />
+    </>
   );
 };
 
