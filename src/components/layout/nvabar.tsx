@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <header>
+    <header className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="text-2xl font-bold">
           RentNest
@@ -17,8 +17,12 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden gap-4 md:flex">
-          <Button variant={"outline"}>Login</Button>
-          <Button>Register</Button>
+          <Button asChild variant={"outline"}>
+            <Link href="/login">Login</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/login">Register</Link>
+          </Button>
         </div>
 
         <div className="md:hidden">

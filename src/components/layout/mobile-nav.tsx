@@ -42,10 +42,12 @@ const MobileNav = () => {
 
         <SheetFooter>
           <div className="flex items-center gap-2 p-6">
-            <Button variant={"outline"} className="w-1/2">
-              Login
+            <Button variant={"outline"} className="w-1/2" asChild>
+              <Link href="/login">Login</Link>
             </Button>
-            <Button className="w-1/2">Register</Button>
+            <Button className="w-1/2" asChild>
+              <Link href="/register">Login</Link>
+            </Button>
           </div>
         </SheetFooter>
       </SheetContent>
