@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
+import PropertySearch from "./property-search";
 
 const HeroSection = () => {
   return (
@@ -13,6 +14,8 @@ const HeroSection = () => {
           Discover comfortable homes, apartments, and spaces that fit your
           lifestyle.
         </p>
+
+        <PropertySearch />
 
         <div className="mt-8 flex justify-center">
           <Button variant={"outline"} asChild>
