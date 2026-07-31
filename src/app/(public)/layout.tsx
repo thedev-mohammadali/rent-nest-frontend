@@ -1,5 +1,5 @@
 import Footer from "@/components/layout/footer";
-import Navbar from "@/components/layout/nvabar";
+import Navbar from "@/components/layout/navbar";
 import { ReactNode } from "react";
 
 const PublicLayout = ({ children }: { children: ReactNode }) => {
