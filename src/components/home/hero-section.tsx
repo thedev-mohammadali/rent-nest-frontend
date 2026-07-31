@@ -1,19 +1,21 @@
+import HeroStats from "@/components/home/hero-stats";
+import PropertySearch from "@/components/home/property-search";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import HeroImage from "./hero-image";
-import PropertySearch from "./property-search";
 
 const HeroSection = () => {
   return (
-    <section className="py-20">
+    <section className="relative overflow-hidden py-24">
+      <div className="to-background absolute inset-0 -z-10 bg-linear-to-br from-emerald-50 via-white" />
       <div className="container mx-auto px-4">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
+          <div className="mx-auto text-center lg:mx-0 lg:text-left">
+            <h1 className="max-w-xl text-4xl font-bold tracking-tight md:text-6xl">
               Find Your Perfect Rental Home
             </h1>
 
-            <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-lg lg:mx-0">
+            <p className="text-muted-foreground mt-6 max-w-2xl text-lg">
               Discover comfortable homes, apartments, and spaces that fit your
               lifestyle.
             </p>
@@ -21,10 +23,12 @@ const HeroSection = () => {
             <PropertySearch />
 
             <div className="mt-8 flex justify-center lg:justify-start">
-              <Button variant={"outline"} asChild>
+              <Button asChild>
                 <Link href="/properties">Explore Properties</Link>
               </Button>
             </div>
+
+            <HeroStats />
           </div>
 
           <HeroImage />
