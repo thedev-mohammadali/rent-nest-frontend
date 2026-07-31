@@ -1,8 +1,8 @@
 import { env } from "@/lib/env";
-import { PaginatedResponse } from "@/types/api";
+import { ApiResponse, PaginatedResponse } from "@/types/api";
 import { Property } from "@/types/property";
 
-export const getFeaturedProperties = async () => {
+export const getFeaturedProperties = async (): Promise<Property[]> => {
   const response = await fetch(`${env.apiUrl}/properties?limit=6`, {
     next: {
       revalidate: 60,
@@ -14,6 +14,26 @@ export const getFeaturedProperties = async () => {
   }
 
   const result: PaginatedResponse<Property> = await response.json();
+
+  return result.data;
+};
+
+export const getPropertyById = async (id: string): Promise<Property | null> => {
+  const response = await fetch(`${env.apiUrl}/properties/${id}`, {
+    next: {
+      revalidate: 60,
+    },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch property");
+  }
+
+  const result: ApiResponse<Property> = await response.json();
 
   return result.data;
 };

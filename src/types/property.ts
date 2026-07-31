@@ -31,4 +31,6 @@ export interface Property {
     id: string;
     name: string;
   };
+
+  reviews?: string[];
 }
