@@ -1,4 +1,5 @@
-import { env } from "@/lib/env";
+import { ApiError } from "@/lib/api-error";
+import { serverClient } from "@/lib/server-client";
 import { ApiResponse, PaginatedResponse } from "@/types/api";
 import { Property } from "@/types/property";
 
@@ -8,44 +9,42 @@ const delay = (ms: number) => {
 
 export const getFeaturedProperties = async (): Promise<Property[]> => {
   if (process.env.NODE_ENV === "development") {
-    await delay(3000);
+    await delay(1500);
   }
 
-  const response = await fetch(`${env.apiUrl}/properties?limit=6`, {
-    next: {
-      revalidate: 60,
+  const result: PaginatedResponse<Property> = await serverClient(
+    "/properties?limit=6",
+    {
+      next: {
+        revalidate: 60,
+      },
     },
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch properties");
-  }
-
-  const result: PaginatedResponse<Property> = await response.json();
+  );
 
   return result.data;
 };
 
 export const getPropertyById = async (id: string): Promise<Property | null> => {
   if (process.env.NODE_ENV === "development") {
-    await delay(3000);
+    await delay(1500);
   }
 
-  const response = await fetch(`${env.apiUrl}/properties/${id}`, {
-    next: {
-      revalidate: 60,
-    },
-  });
+  try {
+    const result: ApiResponse<Property> = await serverClient(
+      `/properties/${id}`,
+      {
+        next: {
+          revalidate: 60,
+        },
+      },
+    );
 
-  if (response.status === 404) {
-    return null;
+    return result.data;
+  } catch (error) {
+    if (error instanceof ApiError && error.statusCode === 404) {
+      return null;
+    }
+
+    throw error;
   }
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch property");
-  }
-
-  const result: ApiResponse<Property> = await response.json();
-
-  return result.data;
 };
