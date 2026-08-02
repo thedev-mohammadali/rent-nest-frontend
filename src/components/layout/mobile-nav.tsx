@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { User } from "@/types/auth";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import {
@@ -12,7 +13,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 
-const MobileNav = () => {
+const MobileNav = ({ user }: { user: User | null }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -41,14 +42,20 @@ const MobileNav = () => {
         </nav>
 
         <SheetFooter>
-          <div className="flex items-center gap-2 p-6">
-            <Button variant={"outline"} className="w-1/2" asChild>
-              <Link href="/login">Login</Link>
+          {user ? (
+            <Button className="mx-auto w-1/2" asChild>
+              <Link href="/logout">Logout</Link>
             </Button>
-            <Button className="w-1/2" asChild>
-              <Link href="/register">Login</Link>
-            </Button>
-          </div>
+          ) : (
+            <div className="flex items-center gap-2 p-6">
+              <Button variant={"outline"} className="w-1/2" asChild>
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button className="w-1/2" asChild>
+                <Link href="/register">Login</Link>
+              </Button>
+            </div>
+          )}
         </SheetFooter>
       </SheetContent>
     </Sheet>

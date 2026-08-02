@@ -1,8 +1,11 @@
 import MobileNav from "@/components/layout/mobile-nav";
 import { Button } from "@/components/ui/button";
+import { getCurrentUser } from "@/services/auth.server";
 import Link from "next/link";
+import NavbarDropdown from "./navbar-dropdown";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const user = await getCurrentUser();
   return (
     <header className="border-b">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -16,17 +19,23 @@ const Navbar = () => {
           <Link href="/contact">Contact</Link>
         </nav>
 
-        <div className="hidden gap-4 md:flex">
-          <Button asChild variant={"outline"}>
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/login">Register</Link>
-          </Button>
-        </div>
+        {user ? (
+          <div className="hidden md:block">
+            <NavbarDropdown user={user} />
+          </div>
+        ) : (
+          <div className="hidden gap-4 md:flex">
+            <Button asChild variant={"outline"}>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/login">Register</Link>
+            </Button>
+          </div>
+        )}
 
         <div className="md:hidden">
-          <MobileNav />
+          <MobileNav user={user} />
         </div>
       </div>
     </header>
