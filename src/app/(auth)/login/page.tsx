@@ -8,6 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Login | RentNest",
+  description: "Login to your account",
+};
 
 const LoginPage = async () => {
   return (
@@ -18,7 +25,9 @@ const LoginPage = async () => {
           Enter your email below to login to your account
         </CardDescription>
         <CardAction>
-          <Button variant="link">Sign Up</Button>
+          <Button variant="link" asChild>
+            <Link href={"/register"}>Register</Link>
+          </Button>
         </CardAction>
       </CardHeader>
       <CardContent>
