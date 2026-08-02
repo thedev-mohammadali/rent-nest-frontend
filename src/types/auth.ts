@@ -1,13 +1,13 @@
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: "TENANT" | "LANDLORD" | "ADMIN";
+  isActive: boolean;
+}
+
 export interface AuthResponse {
   success: boolean;
   message: string;
-  data: {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      role: string;
-      isActive: boolean;
-    };
-  };
+  data: User;
 }
