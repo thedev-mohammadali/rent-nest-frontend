@@ -1,10 +1,10 @@
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import { ReactNode } from "react";
 import "./globals.css";
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Rent Nest",
@@ -17,8 +17,13 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", "font-sans", geist.variable)}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html
+      lang="en"
+      className={cn("h-full", "antialiased", "font-sans", geist.variable)}
+    >
+      <body className="flex min-h-full scrollbar-gutter-both flex-col">
+        {children}
+      </body>
     </html>
   );
 }
