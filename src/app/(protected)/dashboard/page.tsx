@@ -3,11 +3,16 @@ import { getCurrentUser } from "@/services/auth.server";
 import AdminDashboard from "@/components/dashboard/admin/dashboard";
 import LandlordDashboard from "@/components/dashboard/landlord/dashboard";
 import TenantDashboard from "@/components/dashboard/tenant/dashboard";
+import { redirect } from "next/navigation";
 
 const DashboardPage = async () => {
   const user = await getCurrentUser();
 
-  switch (user?.role) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  switch (user.role) {
     case "ADMIN":
       return <AdminDashboard />;
 
