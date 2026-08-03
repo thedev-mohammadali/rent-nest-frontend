@@ -2,11 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
 
-import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/formatter/currency";
 import { formatDate } from "@/lib/formatter/date";
 import { RentalAgreement } from "@/types/dashboard";
 import EmptyState from "../../shared/empty-state";
+import PaymentButton from "./payment-button";
 
 type Props = {
   agreement?: RentalAgreement;
@@ -70,7 +70,9 @@ const ActiveRental = ({ agreement }: Props) => {
           </div>
         </div>
 
-        <Button>View Agreement</Button>
+        {agreement.status === "PENDING_PAYMENT" && (
+          <PaymentButton agreementId={agreement.id} />
+        )}
       </CardContent>
     </Card>
   );

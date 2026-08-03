@@ -7,8 +7,9 @@ import TenantStats from "./components/tenant-stats";
 const TenantDashboard = async () => {
   const { rentalRequests, agreements, payments } = await getTenantDashboard();
 
-  const activeAgreement = agreements.find(
-    (agreement) => agreement.status === "ACTIVE",
+  const currentAgreement = agreements.find(
+    (agreement) =>
+      agreement.status === "ACTIVE" || agreement.status === "PENDING_PAYMENT",
   );
 
   return (
@@ -27,7 +28,7 @@ const TenantDashboard = async () => {
         payments={payments}
       />
 
-      <ActiveRental agreement={activeAgreement} />
+      <ActiveRental agreement={currentAgreement} />
 
       <RentalRequestTable requests={rentalRequests} />
 

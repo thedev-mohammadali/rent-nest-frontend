@@ -19,3 +19,19 @@ export const rejectRentalRequest = async (requestId: string) => {
     }),
   });
 };
+
+export interface CreateRentalRequestPayload {
+  propertyId: string;
+  tenantMessage: string;
+  requestedMoveInDate: string;
+  durationInMonths: number;
+}
+
+export const createRentalRequest = async (
+  payload: CreateRentalRequestPayload,
+) => {
+  return serverClient("/rental-requests", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+};

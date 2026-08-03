@@ -122,3 +122,11 @@ export interface AdminDashboardData {
   totalUsers: number;
   totalProperties: number;
 }
+
+export interface PaymentResponse {
+  success: boolean;
+  message: string;
+  data: {
+    checkoutUrl: string;
+  };
+}
