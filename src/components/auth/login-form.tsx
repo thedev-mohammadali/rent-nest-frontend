@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LoginFormValues, loginSchema } from "@/schemas/auth.schema";
 import { login } from "@/services/auth.client";
-import { Role } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -27,26 +26,10 @@ const LoginForm = () => {
     clearErrors("root");
 
     try {
-      const result = await login(values);
+      await login(values);
 
-      const userRole = result.data.role;
-
-      switch (userRole) {
-        case Role.ADMIN:
-          router.replace("/admin");
-          router.refresh();
-          break;
-
-        case Role.LANDLORD:
-          router.replace("/landlord");
-          router.refresh();
-          break;
-
-        case Role.TENANT:
-          router.replace("/tenant");
-          router.refresh();
-          break;
-      }
+      router.replace("/dashboard");
+      router.refresh();
     } catch (error) {
       if (error instanceof Error) {
         setError("root", {

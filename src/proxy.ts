@@ -13,5 +13,5 @@ const proxy = (request: NextRequest) => {
 export default proxy;
 
 export const config = {
-  matcher: ["/admin/:path*", "/tenant/:path*", "/landlord/:path*"],
+  matcher: ["/dashboard/:path*"],
 };
