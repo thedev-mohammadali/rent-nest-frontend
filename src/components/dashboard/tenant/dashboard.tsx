@@ -27,7 +27,7 @@ const TenantDashboard = async () => {
 
       <RentalRequestTable requests={rentalRequests} />
 
-      <PaymentSummary />
+      <PaymentSummary payments={payments} />
     </div>
   );
 };
