@@ -1,68 +1,28 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import AdminStats from "./components/admin-stats";
+import CategoryOverview from "./components/category-overview";
+import PropertyOverview from "./components/property-overview";
+
+import UserOverview from "./components/user-overview";
 
 const AdminDashboard = () => {
   return (
-    <div className="space-y-6">
-      <div>
-        <Badge variant="secondary">Administrator</Badge>
-
-        <h1 className="mt-3 text-3xl font-bold tracking-tight">
-          Admin Dashboard
-        </h1>
+    <div className="space-y-8">
+      <section>
+        <h1 className="text-3xl font-bold tracking-tight">Platform Overview</h1>
 
         <p className="text-muted-foreground">
-          Manage users, properties, categories, and platform activity.
+          Monitor users, properties, and platform activity.
         </p>
-      </div>
+      </section>
 
-      <Separator />
+      <AdminStats />
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <DashboardCard
-          title="Users"
-          value="1,248"
-          description="Registered users"
-        />
+      <UserOverview />
 
-        <DashboardCard
-          title="Properties"
-          value="342"
-          description="Active listings"
-        />
+      <PropertyOverview />
 
-        <DashboardCard
-          title="Revenue"
-          value="$24,560"
-          description="Monthly revenue"
-        />
-      </div>
+      <CategoryOverview />
     </div>
-  );
-};
-
-const DashboardCard = ({
-  title,
-  value,
-  description,
-}: {
-  title: string;
-  value: string;
-  description: string;
-}) => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-      </CardHeader>
-
-      <CardContent>
-        <p className="text-3xl font-bold">{value}</p>
-
-        <p className="text-muted-foreground mt-1 text-sm">{description}</p>
-      </CardContent>
-    </Card>
   );
 };
 
