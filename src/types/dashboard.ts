@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export type RentalRequestStatus =
   "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
 
@@ -84,4 +86,39 @@ export interface LandlordDashboardData {
   properties: LandlordProperty[];
   rentalRequests: RentalRequest[];
   agreements: RentalAgreement[];
+}
+
+export interface AdminUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+export interface AdminProperty {
+  id: string;
+  title: string;
+  location: string;
+  isAvailable: boolean;
+
+  landlord: {
+    name: string;
+  };
+}
+
+export interface AdminCategory {
+  id: string;
+  name: string;
+  _count?: {
+    properties: number;
+  };
+}
+
+export interface AdminDashboardData {
+  users: AdminUser[];
+  properties: AdminProperty[];
+  categories: Category[];
+  payments: Payment[];
+  totalUsers: number;
+  totalProperties: number;
 }

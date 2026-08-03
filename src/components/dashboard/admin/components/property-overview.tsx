@@ -1,32 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
+import { AdminProperty } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 
-const properties = [
-  {
-    id: 1,
-    title: "Modern Apartment",
-    owner: "John",
-    location: "Dhaka",
-    status: "AVAILABLE",
-  },
-  {
-    id: 2,
-    title: "Family House",
-    owner: "Ali",
-    location: "Gazipur",
-    status: "OCCUPIED",
-  },
-  {
-    id: 3,
-    title: "Office Space",
-    owner: "Sarah",
-    location: "Dhaka",
-    status: "AVAILABLE",
-  },
-];
+type Props = {
+  properties: AdminProperty[];
+};
 
-const PropertyOverview = () => {
+const PropertyOverview = ({ properties }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -34,28 +16,36 @@ const PropertyOverview = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="space-y-4">
-          {properties.map((property) => (
-            <div
-              key={property.id}
-              className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div>
-                <h3 className="font-medium">{property.title}</h3>
+        {properties.length === 0 ? (
+          <EmptyState message="No properties found." />
+        ) : (
+          <div className="space-y-4">
+            <div className="space-y-4">
+              {properties.map((property) => (
+                <div
+                  key={property.id}
+                  className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
+                >
+                  <div>
+                    <h3 className="font-medium">{property.title}</h3>
 
-                <p className="text-muted-foreground text-sm">
-                  Owner: {property.owner}
-                </p>
+                    <p className="text-muted-foreground text-sm">
+                      Owner: {property.landlord.name}
+                    </p>
 
-                <p className="text-muted-foreground text-sm">
-                  📍 {property.location}
-                </p>
-              </div>
+                    <p className="text-muted-foreground text-sm">
+                      📍 {property.location}
+                    </p>
+                  </div>
 
-              <Badge variant="secondary">{property.status}</Badge>
+                  <Badge variant="secondary">
+                    {property.isAvailable ? "AVAILABLE" : "OCCUPIED"}
+                  </Badge>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

@@ -31,6 +31,10 @@ export interface Property {
     id: string;
     name: string;
   };
+  landlord: {
+    id: string;
+    name: string;
+  };
 
   reviews?: string[];
 }

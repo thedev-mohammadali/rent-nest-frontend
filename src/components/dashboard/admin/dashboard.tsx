@@ -1,10 +1,20 @@
+import { getAdminDashboard } from "@/services/dashboard/admin.service";
 import AdminStats from "./components/admin-stats";
 import CategoryOverview from "./components/category-overview";
 import PropertyOverview from "./components/property-overview";
 
 import UserOverview from "./components/user-overview";
 
-const AdminDashboard = () => {
+const AdminDashboard = async () => {
+  const {
+    users,
+    properties,
+    totalProperties,
+    totalUsers,
+    categories,
+    payments,
+  } = await getAdminDashboard();
+
   return (
     <div className="space-y-8">
       <section>
@@ -15,13 +25,17 @@ const AdminDashboard = () => {
         </p>
       </section>
 
-      <AdminStats />
+      <AdminStats
+        totalUsers={totalUsers}
+        totalProperties={totalProperties}
+        payments={payments}
+      />
 
-      <UserOverview />
+      <UserOverview users={users} />
 
-      <PropertyOverview />
+      <PropertyOverview properties={properties} />
 
-      <CategoryOverview />
+      <CategoryOverview categories={categories} />
     </div>
   );
 };

@@ -1,29 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
+import { AdminUser } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 
-const users = [
-  {
-    id: 1,
-    name: "Ali",
-    email: "ali@example.com",
-    role: "TENANT",
-  },
-  {
-    id: 2,
-    name: "John",
-    email: "john@example.com",
-    role: "LANDLORD",
-  },
-  {
-    id: 3,
-    name: "Admin",
-    email: "admin@example.com",
-    role: "ADMIN",
-  },
-];
+type Props = {
+  users: AdminUser[];
+};
 
-const UserOverview = () => {
+const UserOverview = ({ users }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -31,22 +16,26 @@ const UserOverview = () => {
       </CardHeader>
 
       <CardContent>
-        <div className="space-y-4">
-          {users.map((user) => (
-            <div
-              key={user.id}
-              className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div>
-                <h3 className="font-medium">{user.name}</h3>
+        {users.length === 0 ? (
+          <EmptyState message="No users found." />
+        ) : (
+          <div className="space-y-4">
+            {users.map((user) => (
+              <div
+                key={user.id}
+                className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div>
+                  <h3 className="font-medium">{user.name}</h3>
 
-                <p className="text-muted-foreground text-sm">{user.email}</p>
+                  <p className="text-muted-foreground text-sm">{user.email}</p>
+                </div>
+
+                <Badge variant="secondary">{user.role}</Badge>
               </div>
-
-              <Badge variant="secondary">{user.role}</Badge>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
