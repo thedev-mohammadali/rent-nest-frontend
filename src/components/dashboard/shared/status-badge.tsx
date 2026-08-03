@@ -1,18 +1,41 @@
 import { Badge } from "@/components/ui/badge";
 
+import {
+  PaymentStatus,
+  RentalAgreementStatus,
+  RentalRequestStatus,
+} from "@/types/dashboard";
+
+type Status = PaymentStatus | RentalAgreementStatus | RentalRequestStatus;
+
 type Props = {
-  status: string;
+  status: Status;
+};
+
+const statusVariant = {
+  APPROVED: "default",
+  ACTIVE: "default",
+
+  PAID: "default",
+  COMPLETED: "default",
+
+  REJECTED: "destructive",
+  FAILED: "destructive",
+
+  PENDING: "secondary",
+  PENDING_PAYMENT: "secondary",
+  CANCELLED: "secondary",
+} as const;
+
+const formatStatus = (status: string) => {
+  return status
+    .toLowerCase()
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
 const StatusBadge = ({ status }: Props) => {
-  const variant =
-    status === "APPROVED"
-      ? "default"
-      : status === "REJECTED"
-        ? "destructive"
-        : "secondary";
-
-  return <Badge variant={variant}>{status}</Badge>;
+  return <Badge variant={statusVariant[status]}>{formatStatus(status)}</Badge>;
 };
 
 export default StatusBadge;

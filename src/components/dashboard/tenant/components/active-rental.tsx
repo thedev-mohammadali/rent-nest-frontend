@@ -3,7 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/lib/formatter/currency";
+import { formatDate } from "@/lib/formatter/date";
 import { RentalAgreement } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 
 type Props = {
   agreement?: RentalAgreement;
@@ -18,19 +21,15 @@ const ActiveRental = ({ agreement }: Props) => {
         </CardHeader>
 
         <CardContent>
-          <p className="text-muted-foreground">
-            You don&apos;t have an active rental yet.
-          </p>
+          <EmptyState message="You don't have an active rental yet." />
         </CardContent>
       </Card>
     );
   }
 
-  const leasePeriod = `${new Date(
-    agreement.leaseStartDate,
-  ).toLocaleDateString()} - ${new Date(
+  const leasePeriod = `${formatDate(agreement.leaseStartDate)} - ${formatDate(
     agreement.leaseEndDate,
-  ).toLocaleDateString()}`;
+  )}`;
 
   return (
     <Card>
@@ -53,7 +52,9 @@ const ActiveRental = ({ agreement }: Props) => {
           <div>
             <p className="text-muted-foreground text-sm">Monthly Rent</p>
 
-            <p className="font-semibold">${agreement.property.rent}</p>
+            <p className="font-semibold">
+              {formatCurrency(agreement.property.rent)}
+            </p>
           </div>
 
           <div>

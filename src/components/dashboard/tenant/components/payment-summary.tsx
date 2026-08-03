@@ -1,8 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/formatter/currency";
+import { formatDate } from "@/lib/formatter/date";
 
 import { Payment } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 
 interface Props {
   payments: Payment[];
@@ -25,7 +28,7 @@ const PaymentSummary = ({ payments }: Props) => {
         <div>
           <p className="text-muted-foreground text-sm">Total Paid</p>
 
-          <p className="text-3xl font-bold">${totalPaid}</p>
+          <p className="text-3xl font-bold">{formatCurrency(totalPaid)}</p>
         </div>
 
         {latestPayment && (
@@ -34,17 +37,19 @@ const PaymentSummary = ({ payments }: Props) => {
               <p className="text-muted-foreground text-sm">Last Payment</p>
 
               <p className="font-medium">
-                {new Date(
-                  latestPayment.paidAt ?? latestPayment.createdAt,
-                ).toLocaleDateString()}
+                {formatDate(latestPayment.createdAt)}
               </p>
             </div>
 
-            <div>
-              <p className="text-muted-foreground text-sm">Status</p>
+            {latestPayment ? (
+              <div>
+                <p className="text-muted-foreground text-sm">Status</p>
 
-              <Badge>{latestPayment.status}</Badge>
-            </div>
+                <Badge>{latestPayment.status}</Badge>
+              </div>
+            ) : (
+              <EmptyState message="No payments found yet." />
+            )}
           </div>
         )}
 

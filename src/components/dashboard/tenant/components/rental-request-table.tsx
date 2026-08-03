@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import StatusBadge from "@/components/dashboard/shared/status-badge";
 import { RentalRequest } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 
 type Props = {
   requests: RentalRequest[];
@@ -15,24 +16,28 @@ const RentalRequestTable = ({ requests }: Props) => {
       </CardHeader>
 
       <CardContent>
-        <div className="space-y-4">
-          {requests.map((request) => (
-            <div
-              key={request.id}
-              className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div>
-                <h3 className="font-medium">{request.property.title}</h3>
+        {requests.length === 0 ? (
+          <EmptyState message="No rental requests found." />
+        ) : (
+          <div className="space-y-4">
+            {requests.map((request) => (
+              <div
+                key={request.id}
+                className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div>
+                  <h3 className="font-medium">{request.property.title}</h3>
 
-                <p className="text-muted-foreground text-sm">
-                  📍 {request.property.location}
-                </p>
+                  <p className="text-muted-foreground text-sm">
+                    📍 {request.property.location}
+                  </p>
+                </div>
+
+                <StatusBadge status={request.status} />
               </div>
-
-              <StatusBadge status={request.status} />
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
