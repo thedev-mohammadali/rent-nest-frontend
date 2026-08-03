@@ -1,3 +1,5 @@
+import ActiveRental from "./components/active-rental";
+import RentalRequestTable from "./components/rental-request-table";
 import TenantStats from "./components/tenant-stats";
 
 const TenantDashboard = () => {
@@ -12,6 +14,10 @@ const TenantDashboard = () => {
       </section>
 
       <TenantStats />
+
+      <ActiveRental />
+
+      <RentalRequestTable />
     </div>
   );
 };
