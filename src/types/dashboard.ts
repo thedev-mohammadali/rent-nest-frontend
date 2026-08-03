@@ -71,3 +71,17 @@ export interface TenantDashboardData {
   agreements: RentalAgreement[];
   payments: Payment[];
 }
+
+export interface LandlordProperty {
+  id: string;
+  title: string;
+  location: string;
+  rent: string;
+  isAvailable: boolean;
+}
+
+export interface LandlordDashboardData {
+  properties: LandlordProperty[];
+  rentalRequests: RentalRequest[];
+  agreements: RentalAgreement[];
+}

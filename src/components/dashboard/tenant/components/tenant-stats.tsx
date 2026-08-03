@@ -1,4 +1,5 @@
 import StatCard from "@/components/dashboard/shared/stat-card";
+import { formatCurrency } from "@/lib/formatter/currency";
 import { Payment, RentalAgreement, RentalRequest } from "@/types/dashboard";
 
 interface Props {
@@ -33,7 +34,7 @@ const TenantStats = ({ agreements, rentalRequests, payments }: Props) => {
 
       <StatCard
         title="Last Payment"
-        value={latestPayment ? `$${latestPayment.amount}` : "$0"}
+        value={latestPayment ? `${formatCurrency(latestPayment.amount)}` : "$0"}
         description="Latest successful payment"
       />
     </div>

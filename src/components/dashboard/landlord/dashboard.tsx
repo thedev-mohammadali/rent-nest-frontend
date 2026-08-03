@@ -1,9 +1,13 @@
+import { getLandlordDashboard } from "@/services/dashboard/landlord.service";
 import AgreementSummary from "./components/agreement-summary";
 import LandlordStats from "./components/landlord-stats";
 import PropertyOverview from "./components/property-overview";
 import RentalRequestList from "./components/rental-request-list";
 
-const LandlordDashboard = () => {
+const LandlordDashboard = async () => {
+  const { properties, rentalRequests, agreements } =
+    await getLandlordDashboard();
+
   return (
     <div className="space-y-8">
       <section>
@@ -14,13 +18,17 @@ const LandlordDashboard = () => {
         </p>
       </section>
 
-      <LandlordStats />
+      <LandlordStats
+        properties={properties}
+        rentalRequests={rentalRequests}
+        agreements={agreements}
+      />
 
-      <PropertyOverview />
+      <PropertyOverview properties={properties} />
 
-      <RentalRequestList />
+      <RentalRequestList requests={rentalRequests} />
 
-      <AgreementSummary />
+      <AgreementSummary agreements={agreements} />
     </div>
   );
 };

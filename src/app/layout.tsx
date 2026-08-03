@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -23,6 +24,7 @@ const RootLayout = async ({
     >
       <body className="flex min-h-full scrollbar-gutter-both flex-col">
         {children}
+        <Toaster />
       </body>
     </html>
   );

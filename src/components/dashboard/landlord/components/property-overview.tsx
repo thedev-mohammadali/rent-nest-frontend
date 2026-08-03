@@ -1,23 +1,12 @@
+import { LandlordProperty } from "@/types/dashboard";
+import EmptyState from "../../shared/empty-state";
 import PropertyCard from "./property-card";
 
-const properties = [
-  {
-    id: 1,
-    title: "Modern Apartment",
-    location: "Dhaka",
-    rent: 900,
-    available: true,
-  },
-  {
-    id: 2,
-    title: "Family House",
-    location: "Gazipur",
-    rent: 700,
-    available: false,
-  },
-];
+type Props = {
+  properties: LandlordProperty[];
+};
 
-const PropertyOverview = () => {
+const PropertyOverview = ({ properties }: Props) => {
   return (
     <section className="space-y-4">
       <div>
@@ -28,11 +17,15 @@ const PropertyOverview = () => {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {properties.map((property) => (
-          <PropertyCard key={property.id} {...property} />
-        ))}
-      </div>
+      {properties.length === 0 ? (
+        <EmptyState message="No properties listed yet." />
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {properties.map((property) => (
+            <PropertyCard key={property.id} {...property} />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
