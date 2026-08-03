@@ -1,5 +1,6 @@
 "use client";
 
+import { logout } from "@/services/auth.client";
 import { User } from "@/types/auth";
 import {
   LayoutDashboard,
@@ -7,6 +8,7 @@ import {
   Settings,
   User as UserIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +25,17 @@ const userMenuItems = [
 ];
 
 const NavbarDropdown = ({ user }: { user: User }) => {
+  const router = useRouter();
+
+  const handleUserMenuAction = async (action: string) => {
+    switch (action) {
+      case "logout":
+        await logout();
+        router.replace("/");
+        router.refresh();
+        break;
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,14 +56,17 @@ const NavbarDropdown = ({ user }: { user: User }) => {
         {userMenuItems.map((item) => {
           const Icon = item.icon;
           return (
-            <DropdownMenuItem key={item.action}>
+            <DropdownMenuItem
+              key={item.action}
+              onClick={() => handleUserMenuAction(item.action)}
+            >
               <Icon className="mr-2 h-4 w-4" />
               <span>{item.label}</span>
             </DropdownMenuItem>
           );
         })}
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleUserMenuAction("logout")}>
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>

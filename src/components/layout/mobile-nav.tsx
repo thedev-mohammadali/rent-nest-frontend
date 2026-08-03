@@ -1,9 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { logout } from "@/services/auth.client";
 import { User } from "@/types/auth";
 import { Menu } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +16,13 @@ import {
 } from "../ui/sheet";
 
 const MobileNav = ({ user }: { user: User | null }) => {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace("/");
+    router.refresh();
+  };
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -43,8 +52,8 @@ const MobileNav = ({ user }: { user: User | null }) => {
 
         <SheetFooter>
           {user ? (
-            <Button className="mx-auto w-1/2" asChild>
-              <Link href="/logout">Logout</Link>
+            <Button className="mx-auto w-1/2" onClick={handleLogout}>
+              Logout
             </Button>
           ) : (
             <div className="flex items-center gap-2 p-6">
