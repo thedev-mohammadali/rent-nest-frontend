@@ -21,7 +21,11 @@ const TenantDashboard = async () => {
         </p>
       </section>
 
-      <TenantStats />
+      <TenantStats
+        agreements={agreements}
+        rentalRequests={rentalRequests}
+        payments={payments}
+      />
 
       <ActiveRental agreement={activeAgreement} />
 
