@@ -1,20 +1,39 @@
 import StatCard from "@/components/dashboard/shared/stat-card";
+import {
+  LandlordProperty,
+  RentalAgreement,
+  RentalRequest,
+} from "@/types/dashboard";
 
-const LandlordStats = () => {
+interface Props {
+  properties: LandlordProperty[];
+  rentalRequests: RentalRequest[];
+  agreements: RentalAgreement[];
+}
+
+const LandlordStats = ({ properties, rentalRequests, agreements }: Props) => {
+  const pendingRequests = rentalRequests.filter(
+    (request) => request.status === "PENDING",
+  ).length;
+
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      <StatCard title="My Properties" value="12" description="Total listings" />
+      <StatCard
+        title="My Properties"
+        value={String(properties.length)}
+        description="Total listings"
+      />
 
       <StatCard
         title="Rental Requests"
-        value="5"
+        value={String(pendingRequests)}
         description="Waiting approval"
       />
 
       <StatCard
-        title="Monthly Income"
-        value="$4200"
-        description="Current earnings"
+        title="Rental Agreements"
+        value={String(agreements.length)}
+        description="Current agreements"
       />
     </div>
   );
