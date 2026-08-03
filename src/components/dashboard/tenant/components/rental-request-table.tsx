@@ -1,29 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import StatusBadge from "@/components/dashboard/shared/status-badge";
+import { RentalRequest } from "@/types/dashboard";
 
-const requests = [
-  {
-    id: 1,
-    property: "Modern Apartment",
-    location: "Dhaka",
-    status: "PENDING",
-  },
-  {
-    id: 2,
-    property: "Luxury Villa",
-    location: "Chittagong",
-    status: "APPROVED",
-  },
-  {
-    id: 3,
-    property: "Family House",
-    location: "Dhaka",
-    status: "REJECTED",
-  },
-];
+type Props = {
+  requests: RentalRequest[];
+};
 
-const RentalRequestTable = () => {
+const RentalRequestTable = ({ requests }: Props) => {
   return (
     <Card>
       <CardHeader>
@@ -38,10 +22,10 @@ const RentalRequestTable = () => {
               className="flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between"
             >
               <div>
-                <h3 className="font-medium">{request.property}</h3>
+                <h3 className="font-medium">{request.property.title}</h3>
 
                 <p className="text-muted-foreground text-sm">
-                  📍 {request.location}
+                  📍 {request.property.location}
                 </p>
               </div>
 

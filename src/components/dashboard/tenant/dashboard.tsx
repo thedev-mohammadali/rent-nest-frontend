@@ -1,9 +1,16 @@
+import { getTenantDashboard } from "@/services/dashboard/tenant.service";
 import ActiveRental from "./components/active-rental";
 import PaymentSummary from "./components/payment-summary";
 import RentalRequestTable from "./components/rental-request-table";
 import TenantStats from "./components/tenant-stats";
 
-const TenantDashboard = () => {
+const TenantDashboard = async () => {
+  const { rentalRequests, agreements, payments } = await getTenantDashboard();
+
+  const activeAgreement = agreements.find(
+    (agreement) => agreement.status === "ACTIVE",
+  );
+
   return (
     <div className="space-y-8">
       <section>
@@ -16,9 +23,9 @@ const TenantDashboard = () => {
 
       <TenantStats />
 
-      <ActiveRental />
+      <ActiveRental agreement={activeAgreement} />
 
-      <RentalRequestTable />
+      <RentalRequestTable requests={rentalRequests} />
 
       <PaymentSummary />
     </div>
