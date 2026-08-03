@@ -1,4 +1,5 @@
 import ActiveRental from "./components/active-rental";
+import PaymentSummary from "./components/payment-summary";
 import RentalRequestTable from "./components/rental-request-table";
 import TenantStats from "./components/tenant-stats";
 
@@ -18,6 +19,8 @@ const TenantDashboard = () => {
       <ActiveRental />
 
       <RentalRequestTable />
+
+      <PaymentSummary />
     </div>
   );
 };
