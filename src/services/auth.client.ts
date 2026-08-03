@@ -1,8 +1,9 @@
 import { browserClient } from "@/lib/browser-client";
 import { LoginFormValues } from "@/schemas/auth.schema";
+import { AuthResponse } from "@/types/auth";
 
 export const login = async (payload: LoginFormValues) => {
-  const data = await browserClient("/api/auth/login", {
+  const result: AuthResponse = await browserClient("/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,5 +12,5 @@ export const login = async (payload: LoginFormValues) => {
     body: JSON.stringify(payload),
   });
 
-  return data;
+  return result;
 };

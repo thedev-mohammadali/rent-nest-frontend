@@ -52,7 +52,7 @@ const MobileNav = ({ user }: { user: User | null }) => {
                 <Link href="/login">Login</Link>
               </Button>
               <Button className="w-1/2" asChild>
-                <Link href="/register">Login</Link>
+                <Link href="/register">Register</Link>
               </Button>
             </div>
           )}

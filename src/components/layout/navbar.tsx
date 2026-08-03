@@ -29,7 +29,7 @@ const Navbar = async () => {
               <Link href="/login">Login</Link>
             </Button>
             <Button asChild>
-              <Link href="/login">Register</Link>
+              <Link href="/register">Register</Link>
             </Button>
           </div>
         )}
